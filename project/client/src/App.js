@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import './components/ChatBox/ChatBox';
+import ChatBox from './components/ChatBox/ChatBox';
 
 class App extends Component {
   state = {users: []}
