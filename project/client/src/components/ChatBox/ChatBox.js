@@ -18,13 +18,15 @@ class ChatBox extends Component {
     state = {};
 
 
-
-    render() {
+    componentDidMount(){
         const socket = socketIO('localhost:3001');
         socket.on('hi', (msg) => {
             console.log(`recevied: ${msg}`);
         })
 
+    }
+    render() {
+        
         const sendSMS = () => {
             console.log('sending sms');
 
