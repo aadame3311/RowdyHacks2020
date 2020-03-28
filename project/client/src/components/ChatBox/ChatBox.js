@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './ChatBox.css';
 
+import socketIO from 'socket.io-client';
 
 // const sendSMS = () => {
 //   let data = {
@@ -16,7 +17,18 @@ import './ChatBox.css';
 class ChatBox extends Component {
     state = {};
 
+
+
     render() {
+        const socket = socketIO('localhost:3001');
+        socket.on('hi', (msg) => {
+            console.log(`recevied: ${msg}`);
+        })
+
+        const sendSMS = () => {
+            console.log('sending sms');
+
+        }
         return(
             <div className="ChatBox">
                 <div className="ChatBox-Container">
@@ -27,7 +39,7 @@ class ChatBox extends Component {
                     </div>
                     <div className="Bottom">
                         <input type="text" placeholder="Enter text here..." />
-                        <div className="SendBtn">[SEND]</div>
+                        <div onClick={sendSMS} className="SendBtn">[SEND]</div>
                     </div>
                 </div>
             </div>
