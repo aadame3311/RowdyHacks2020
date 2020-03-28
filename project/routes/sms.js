@@ -48,7 +48,7 @@ router.post('/user_reply', (req, res) => {
         console.log(io);
         console.log(io != null);
         io.on('connection', function (socket) {
-            socket.broadcast.emit('hi');
+            socket.broadcast.emit('hi', 'hello toni');
         });
 
     }
