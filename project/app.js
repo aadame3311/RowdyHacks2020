@@ -10,6 +10,11 @@ var smsRouter = require('./routes/sms');
 
 var app = express();
 
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
+
+app.set('socketio', io);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
