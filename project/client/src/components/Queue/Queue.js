@@ -55,7 +55,7 @@ class Queue extends Component {
         return(
             <div className="Queue">
                 <div className="List-Container">
-                    <h3>Queue</h3>
+                    <h3>Queue</h3><span>Time left: <span style={{color: 'red'}}>10s</span></span>
                     <ul>
                         {renderQueueItems()}
                     </ul>

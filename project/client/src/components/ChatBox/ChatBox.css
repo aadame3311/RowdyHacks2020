@@ -10,4 +10,33 @@
     margin: 1rem;
     height: 90vh;
     padding: 1rem;
+
+
+    display: grid;
+    grid-template-rows: 1fr 0.1fr;
+
+}
+.Top {
+    padding: 1rem;
+    background-color: whitesmoke;
+}
+.Bottom {
+    background-color: whitesmoke;
+    display: grid;
+    grid-template-columns: 1fr 0.1fr;
+    align-items: center;
+    border-top: solid 1px black;
+}
+input {
+    background-color: whitesmoke;
+    width: 1fr;
+    border-style: none;
+    padding: 20px;
+}
+input:focus {
+    outline: none;
+}
+.SendBtn {
+    text-align: center;
+    padding: 10px;
 }

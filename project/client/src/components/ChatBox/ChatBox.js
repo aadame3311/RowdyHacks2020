@@ -20,7 +20,15 @@ class ChatBox extends Component {
         return(
             <div className="ChatBox">
                 <div className="ChatBox-Container">
-                    <h3>ChatBox</h3>
+
+
+                    <div className="Top">
+                        <h3>ChatBox</h3>
+                    </div>
+                    <div className="Bottom">
+                        <input type="text" placeholder="Enter text here..." />
+                        <div className="SendBtn">[SEND]</div>
+                    </div>
                 </div>
             </div>
         );
