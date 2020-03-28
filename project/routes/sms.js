@@ -45,10 +45,10 @@ router.post('/user_reply', (req, res) => {
         console.log(users);
 
         var io = req.app.get('socketio');
-        console.log(io);
+        //console.log(io);
         console.log(io != null);
         io.on('connection', function (socket) {
-            socket.broadcast.emit('hi', 'hello toni');
+            socket.broadcast.emit('hi', name);
         });
 
     }
