@@ -19,7 +19,9 @@ class ChatBox extends Component {
     render() {
         return(
             <div className="ChatBox">
-                
+                <div className="ChatBox-Container">
+                    <h3>ChatBox</h3>
+                </div>
             </div>
         );
     }

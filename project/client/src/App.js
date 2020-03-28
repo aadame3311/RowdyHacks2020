@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import ChatBox from './components/ChatBox/ChatBox';
+import Queue from './components/Queue/Queue';
 
 class App extends Component {
   state = {users: []}
@@ -15,9 +16,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        
-        <ChatBox></ChatBox>
+        <ChatBox>
+        </ChatBox>
 
+        <Queue>
+        </Queue>
       </div>
     );
   }
