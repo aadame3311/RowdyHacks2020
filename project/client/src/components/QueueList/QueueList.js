@@ -28,6 +28,7 @@ class QueueList extends Component {
             queuedParticipants.push(_participant);
             this.setState({queuedParticipants: queuedParticipants});
             //socket.emit('participant-queued', participants);
+            console.log('sending emit');
             socket.emit('blah', 'participant has been queued');
         });
     }

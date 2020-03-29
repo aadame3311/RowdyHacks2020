@@ -4,12 +4,23 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var smsRouter = require('./routes/sms');
+var indexRouter = require('./routes/index')();
+var usersRouter = require('./routes/users')();
+
+
+
 
 var app = express();
 
+var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+var smsRouter = require('./routes/sms')(io);
+
+app.set('socketio', io);
+app.set('server', server);
+console.log(io);
 
 
 // view engine setup
@@ -25,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/sms', smsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
