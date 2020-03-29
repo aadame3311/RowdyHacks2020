@@ -16,7 +16,7 @@ import Guest from '../../models/Guest';
 // )}
 
 function QueueItem(guest) {
-    return <li className="Queue-Item">
+    return <li key={guest.phone} className="Queue-Item">
         <span className="username">{guest.name}</span>
         <span className="userphone">{guest.phone}</span>
         <span style={{color: 'red', textAlign: 'right'}} className="action-remove">X</span>
