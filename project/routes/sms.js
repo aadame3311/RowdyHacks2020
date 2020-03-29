@@ -15,28 +15,17 @@ var smsRoute = function(io) {
     //var io = req.app.get('socketio');
     io.on("connection", (socket) => {
         socket.on('question-entered', (question) => {
-<<<<<<< HEAD
             client.notify.services(process.env.TWILIO_NOTIFY_SID)
-            .notifications.create({
-                toBinding: JSON.stringify({
-                    binding_type: 'sms', address: process.env.TEST_PHONE_EDDY,
-                    binding_type: 'sms', address: process.env.TEST_PHONE_TONY,
-                    binding_type: 'sms', address: process.env.TEST_PHONE_BRYAN,
-                }),
-                body: question
-            })
-            .then(notification => console.log(notification.sid))
-            .catch(error => console.log(error));
-=======
-            console.log('question entered');
-            if (participants) {
-                client.messages
-                    .create({body: question, from: process.env.TWILIO_PHONE_NUMBER, to: participants[Object.keys(participants)[0]].phone})
-            } 
-            else {
-                console.log('no participants');
-            }
->>>>>>> e631663e71c7c0069ba1c6b0bd18f7a4c9beaa79
+                .notifications.create({
+                    toBinding: JSON.stringify({
+                        binding_type: 'sms', address: process.env.TEST_PHONE_EDDY,
+                        binding_type: 'sms', address: process.env.TEST_PHONE_TONY,
+                        binding_type: 'sms', address: process.env.TEST_PHONE_BRYAN,
+                    }),
+                    body: question
+                })
+                .then(notification => console.log(notification.sid))
+                .catch(error => console.log(error));
         });
     });
 
