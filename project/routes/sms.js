@@ -54,7 +54,7 @@ router.post('/user_reply', (req, res) => {
         //console.log(io);
         console.log(io != null);
         console.log("about to connect");
-        io.on('connection', (socket) => emitSMS(socket, name));
+        io.emmit('hi', name);
 
     }
     else if (incommingMsg == RAISE_HAND) {
