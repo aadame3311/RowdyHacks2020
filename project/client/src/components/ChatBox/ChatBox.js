@@ -18,7 +18,7 @@ class ChatBox extends Component {
     state = {};
 
 
-    componentDidMount(){
+    componentDidMount() {
         const socket = socketIO('localhost:3001');
         socket.on('hi', (msg) => {
             console.log(`recevied: ${msg}`);
@@ -26,12 +26,17 @@ class ChatBox extends Component {
 
     }
     render() {
-        
+
         const sendSMS = () => {
+            const socket = socketIO('localhost:3001');
+            socket.on('hi', (msg) => {
+                console.log(`recevied: ${msg}`);
+            })
+            
             console.log('sending sms');
 
         }
-        return(
+        return (
             <div className="ChatBox">
                 <div className="ChatBox-Container">
 
@@ -45,6 +50,8 @@ class ChatBox extends Component {
                     </div>
                 </div>
             </div>
+
+
         );
     }
 }
