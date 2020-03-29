@@ -22,10 +22,10 @@ class ParticipantList extends Component {
     componentDidMount(){
         const socket = socketIO('localhost:3001');
         socket.on('new-participant', (data) => {
-            this.setState({participants: data});
+            this.setState({participants: data.participants});
         })
     }
-    
+
     render() {
         const addParticipant = (participant) => {
             
@@ -34,8 +34,6 @@ class ParticipantList extends Component {
         const renderParticipantItems = () => {
             let participants = this.state.participants;
             let renderedItems = [];
-            console.log('rendering participants');
-            console.log(participants);
             for (var key in participants) {
                 renderedItems.push(
                     ParticipantItem(participants[key])

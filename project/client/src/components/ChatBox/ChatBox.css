@@ -18,9 +18,16 @@
 }
 .Top {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: end;
+
+    overflow-y: scroll;
     background-color: whitesmoke;
+    position: relative;
 }
-.Bottom {
+.Bottom form{
     background-color: whitesmoke;
     display: grid;
     grid-template-columns: 1fr 0.1fr;
@@ -39,4 +46,43 @@ input:focus {
 .SendBtn {
     text-align: center;
     padding: 10px;
+}
+
+.geekie {
+    background-color: orange;
+    float: left;
+    text-align: left;
+    box-shadow: lightgray 5px 5px 10px;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+.self {
+    background-color: whitesmoke;
+    float: right;
+    text-align: right;
+    box-shadow: lightgray 5px 5px 10px;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+.message-sender {
+    text-align: left;
+}
+.message-sender {
+    font-size: 12px;
+    opacity: 0.5;
+}
+.MessageItem {
+    width: auto;
+    flex-direction: column;
+    margin-top: 1rem; 
+    display: flex;
+    text-align: right;
+    justify-content: flex-end;
+    
+}
+.messages-container {
+
+    margin-top: auto;
+    margin-bottom: 1rem;
+    
 }

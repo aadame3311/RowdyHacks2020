@@ -10,9 +10,12 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const ROOM_CODE = "ABC";
 
 var smsRoute = function(io) {
+    let participants;
+
     //var io = req.app.get('socketio');
     io.on("connection", (socket) => {
         socket.on('question-entered', (question) => {
+<<<<<<< HEAD
             client.notify.services(process.env.TWILIO_NOTIFY_SID)
             .notifications.create({
                 toBinding: JSON.stringify({
@@ -24,6 +27,16 @@ var smsRoute = function(io) {
             })
             .then(notification => console.log(notification.sid))
             .catch(error => console.log(error));
+=======
+            console.log('question entered');
+            if (participants) {
+                client.messages
+                    .create({body: question, from: process.env.TWILIO_PHONE_NUMBER, to: participants[Object.keys(participants)[0]].phone})
+            } 
+            else {
+                console.log('no participants');
+            }
+>>>>>>> e631663e71c7c0069ba1c6b0bd18f7a4c9beaa79
         });
     });
 
@@ -47,9 +60,8 @@ var smsRoute = function(io) {
         console.log("Finished Sending Bulk Messages...")
     });
 
-    let participants = {}
     router.post('/user_reply', (req, res) => {
-        
+        console.log('detected user reply');
         const twiml = new MessagingResponse();
         const RAISE_HAND1 = String.fromCodePoint(9995);
         const RAISE_HAND2 = String.fromCodePoint(128400);
@@ -76,7 +88,7 @@ var smsRoute = function(io) {
                 //console.log(io);
                 console.log(io != null);
         
-                io.emit('new-participant', participants);
+                io.emit('new-participant', {participants: participants, new_participant: newParticipant});
         
             }
             else if (incommingMsg == RAISE_HAND) {
