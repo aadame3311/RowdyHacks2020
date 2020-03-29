@@ -5,17 +5,40 @@ var router = express.Router();
 const accountSid = process.env.TWILIO_API_KEY;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
+client.messages
+    .create({ body: 'hi', from: '+13088887142', to: '+1 956-438-8893' })
+    .then(messages => {
+        console.log('Messages sent!');
+    })
+    .catch(err => console.error(err));
+    
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 const ROOM_CODE = "ABC";
 
 var smsRoute = function(io) {
     let participants = {};
-
+    
     //var io = req.app.get('socketio');
     io.on("connection", (socket) => {
+        console.log('connection detected');
+        
+
         socket.on('question-entered', (question) => {
             console.log(question);
+            if (participants!={}) {
+                console.log('looping');
+                for (let key in participants) {
+                    console.log(participants[key].phone);
+                    console.log('sending message');
+                    client.messages.create({
+                        body: question,
+                        from: process.env.TWILIO_PHONE_NUMBER,
+                        to: participants[key].phone.toString()
+                    })
+                    .then(message => console.log(message.id));
+                }
+            }
         });
     });
 
