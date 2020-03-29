@@ -29,6 +29,8 @@ router.post('/', (req, res, next) => {
         .then(message => console.log(message.sid));
 });
 
+let guests = {}
+
 router.post('/user_reply', (req, res) => {
     const twiml = new MessagingResponse();
 
@@ -36,34 +38,37 @@ router.post('/user_reply', (req, res) => {
     incommingPhoneNumber = req.body.From;
     incommingMsg = req.body.Body;
 
-    console.log(`from: ${incommingPhoneNumber}, saying: ${incommingMsg}`);
+    if (!(incommingPhoneNumber in guests)) {
+        console.log(`from: ${incommingPhoneNumber}, saying: ${incommingMsg}`);
 
-    if (incommingMsg == `join:${ROOM_CODE}`) {
-        twiml.message('Enter User Name: username:<name>');
+        if (incommingMsg == `join:${ROOM_CODE}`) {
+            twiml.message('Enter User Name: username:<name>');
+        }
+        else if (incommingMsg.includes('username:')) {
+            console.log(incommingMsg.split(':'));
+            const name = incommingMsg.split(':')[1];
+    
+            var newUser = { 'username': name, 'phone': incommingPhoneNumber, 'state': 'joined' };
+            
+            guests[incommingPhoneNumber] = newUser;
+
+            var io = req.app.get('socketio');
+            console.log(io);
+            console.log(io != null);
+    
+            io.emit('new-guest', guests);
+    
+        }
+        else if (incommingMsg == RAISE_HAND) {
+    
+        }
+        // user is replying answer
+        else {
+    
+        }
     }
-    else if (incommingMsg.includes('username:')) {
-        console.log(incommingMsg.split(':'));
-        const name = incommingMsg.split(':')[1];
+    console.log(guests);
 
-        var newUser = { 'username': name, 'phone': incommingPhoneNumber, 'state': 'joined' };
-
-        users.push(newUser);
-        console.log(users);
-
-        var io = req.app.get('socketio');
-        //console.log(io);
-        console.log(io != null);
-        console.log("about to connect");
-        io.emmit('hi', name);
-
-    }
-    else if (incommingMsg == RAISE_HAND) {
-
-    }
-    // user is replying answer
-    else {
-
-    }
     res.writeHead(200, { 'Content-Type': 'text/xml' });
     res.end(twiml.toString());
 });
