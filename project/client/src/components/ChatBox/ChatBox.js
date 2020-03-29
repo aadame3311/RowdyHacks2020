@@ -16,20 +16,10 @@ import socketIO from 'socket.io-client';
 
 class ChatBox extends Component {
     state = {};
-
-
-    componentDidMount(){
-        const socket = socketIO('localhost:3001');
-        socket.on('new-guest', (data) => {
-            
-        })
-
-    }
     render() {
         
         const sendSMS = () => {
             console.log('sending sms');
-
         }
         return(
             <div className="ChatBox">

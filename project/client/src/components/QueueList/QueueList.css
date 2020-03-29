@@ -1,0 +1,14 @@
+
+.QueueList {
+    grid-column: 2;
+}
+.QueueList .List-Container {
+    --primary: #68C2DB;
+
+    background-color: var(--primary);
+
+    margin: 1rem;
+    height: 90vh;
+    padding: 1rem;
+}
+

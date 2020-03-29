@@ -6,8 +6,33 @@ body {
   height: 100%;
 
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2fr 0.5fr 0.5fr;
+  grid-template-rows: 1fr;
 }
+.List-Container {
+  --primary: #68C2DB;
+
+  background-color: var(--primary);
+
+  margin: 1rem;
+  height: 90vh;
+  padding: 1rem;
+}
+
+.List-Container ul {
+  list-style-type: none;
+  padding: 0;
+}
+.List-Container ul .Queue-Item {
+  --primary: wheat;
+
+  padding: 8px;
+  margin: 10px;
+  background-color: var(--primary);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

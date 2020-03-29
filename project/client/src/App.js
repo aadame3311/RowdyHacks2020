@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 
 import ChatBox from './components/ChatBox/ChatBox';
-import QueueList from './components/Queue/Queue';
+import QueueList from './components/QueueList/QueueList';
+import ParticipantList from './components/ParticipantList/ParticipantList';
 
 class App extends Component {
   state = {users: []}
@@ -21,6 +22,9 @@ class App extends Component {
 
         <QueueList>
         </QueueList>
+        
+        <ParticipantList>
+        </ParticipantList>
       </div>
     );
   }

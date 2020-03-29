@@ -29,16 +29,23 @@ router.post('/', (req, res, next) => {
         .then(message => console.log(message.sid));
 });
 
-let guests = {}
+let participants = {}
+
 
 router.post('/user_reply', (req, res) => {
+    var io = req.app.get('socketio');
     const twiml = new MessagingResponse();
+    const RAISE_HAND1 = String.fromCodePoint(9995);
+    const RAISE_HAND2 = String.fromCodePoint(128400);
 
     console.log(req.body.From);
     incommingPhoneNumber = req.body.From;
     incommingMsg = req.body.Body;
+    
 
-    if (!(incommingPhoneNumber in guests)) {
+    
+
+    if (!(incommingPhoneNumber in participants)) {
         console.log(`from: ${incommingPhoneNumber}, saying: ${incommingMsg}`);
 
         if (incommingMsg == `join:${ROOM_CODE}`) {
@@ -48,15 +55,14 @@ router.post('/user_reply', (req, res) => {
             console.log(incommingMsg.split(':'));
             const name = incommingMsg.split(':')[1];
     
-            var newUser = { 'username': name, 'phone': incommingPhoneNumber, 'state': 'joined' };
+            var newParticipant = { 'username': name, 'phone': incommingPhoneNumber, 'state': 'joined' };
             
-            guests[incommingPhoneNumber] = newUser;
+            participants[incommingPhoneNumber] = newParticipant;
 
-            var io = req.app.get('socketio');
             console.log(io);
             console.log(io != null);
     
-            io.emit('new-guest', guests);
+            io.emit('new-participant', participants);
     
         }
         else if (incommingMsg == RAISE_HAND) {
@@ -66,11 +72,35 @@ router.post('/user_reply', (req, res) => {
         else {
     
         }
+    } 
+    else {
+        console.log('checking state');
+        /* Check States */
+        let currParticipant = participants[incommingPhoneNumber];
+        console.log(currParticipant);
+        if (currParticipant.state == "joined") {
+            // logic when user is in joined state
+            console.log(incommingMsg.toString());
+            if (incommingMsg.toString() == "hand") {
+                participants[incommingPhoneNumber].state = "queued";
+                io.emit('queue-participant', participants[incommingPhoneNumber]);
+                io.on('blah', (data) =>{
+                    console.log(data);
+                });
+            }
+        }
+        if (currParticipant.state == "queued") {
+            // logic when user is in queue
+        }
+        if (currParticipant.state == "awaitingHostResponse") {
+            // logic for when after the user answers host question
+        } 
     }
-    console.log(guests);
+    //console.log(guests);
 
-    res.writeHead(200, { 'Content-Type': 'text/xml' });
-    res.end(twiml.toString());
+    res.end('success');
+    // res.writeHead(200, { 'Content-Type': 'text/xml' });
+    // res.end(twiml.toString());
 });
 
 module.exports = router;
