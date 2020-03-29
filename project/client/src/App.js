@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import ChatBox from './components/ChatBox/ChatBox';
-import Queue from './components/Queue/Queue';
+import QueueList from './components/Queue/Queue';
 
 class App extends Component {
   state = {users: []}
@@ -19,8 +19,8 @@ class App extends Component {
         <ChatBox>
         </ChatBox>
 
-        <Queue>
-        </Queue>
+        <QueueList>
+        </QueueList>
       </div>
     );
   }

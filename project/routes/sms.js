@@ -15,6 +15,12 @@ var users = [];
 const ROOM_CODE = "ABC";
 
 
+
+const emitSMS = (socket, name) => {
+    console.log("emitting");
+    socket.broadcast.emit('hi', name);
+}
+
 /* POST text message */
 router.post('/', (req, res, next) => {
     console.log('sending sms');
@@ -47,9 +53,8 @@ router.post('/user_reply', (req, res) => {
         var io = req.app.get('socketio');
         //console.log(io);
         console.log(io != null);
-        io.on('connection', function (socket) {
-            socket.broadcast.emit('hi', name);
-        });
+        console.log("about to connect");
+        io.on('connection', (socket) => emitSMS(socket, name));
 
     }
     else if (incommingMsg == RAISE_HAND) {

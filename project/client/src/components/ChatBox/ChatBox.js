@@ -21,6 +21,7 @@ class ChatBox extends Component {
     componentDidMount(){
         const socket = socketIO('localhost:3001');
         socket.on('hi', (msg) => {
+            console.log('hello from server');
             console.log(`recevied: ${msg}`);
         })
 
