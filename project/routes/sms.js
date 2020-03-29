@@ -10,11 +10,19 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const ROOM_CODE = "ABC";
 
 var smsRoute = function(io) {
+    let participants;
+
     //var io = req.app.get('socketio');
     io.on("connection", (socket) => {
         socket.on('question-entered', (question) => {
-            client.messages
-                .create({body: question, from: process.env.TWILIO_PHONE_NUMBER, to: })
+            console.log('question entered');
+            if (participants) {
+                client.messages
+                    .create({body: question, from: process.env.TWILIO_PHONE_NUMBER, to: participants[Object.keys(participants)[0]].phone})
+            } 
+            else {
+                console.log('no participants');
+            }
         });
     });
 
@@ -27,9 +35,8 @@ var smsRoute = function(io) {
             .then(message => console.log(message.sid));
     });
 
-    let participants = {}
     router.post('/user_reply', (req, res) => {
-        
+        console.log('detected user reply');
         const twiml = new MessagingResponse();
         const RAISE_HAND1 = String.fromCodePoint(9995);
         const RAISE_HAND2 = String.fromCodePoint(128400);
@@ -56,7 +63,7 @@ var smsRoute = function(io) {
                 //console.log(io);
                 console.log(io != null);
         
-                io.emit('new-participant', participants);
+                io.emit('new-participant', {participants: participants, new_participant: newParticipant});
         
             }
             else if (incommingMsg == RAISE_HAND) {

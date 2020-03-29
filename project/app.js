@@ -20,8 +20,6 @@ var smsRouter = require('./routes/sms')(io);
 
 app.set('socketio', io);
 app.set('server', server);
-console.log(io);
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
