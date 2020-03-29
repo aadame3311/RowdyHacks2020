@@ -81,7 +81,8 @@ input:focus {
     
 }
 .messages-container {
-
+    margin-left: 1rem;
+    margin-right: auto;
     margin-top: auto;
     margin-bottom: 1rem;
     

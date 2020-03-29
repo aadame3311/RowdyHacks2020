@@ -10,22 +10,12 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const ROOM_CODE = "ABC";
 
 var smsRoute = function(io) {
-    let participants;
+    let participants = {};
 
     //var io = req.app.get('socketio');
     io.on("connection", (socket) => {
         socket.on('question-entered', (question) => {
-            client.notify.services(process.env.TWILIO_NOTIFY_SID)
-                .notifications.create({
-                    toBinding: JSON.stringify({
-                        binding_type: 'sms', address: process.env.TEST_PHONE_EDDY,
-                        binding_type: 'sms', address: process.env.TEST_PHONE_TONY,
-                        binding_type: 'sms', address: process.env.TEST_PHONE_BRYAN,
-                    }),
-                    body: question
-                })
-                .then(notification => console.log(notification.sid))
-                .catch(error => console.log(error));
+            console.log(question);
         });
     });
 
@@ -33,18 +23,6 @@ var smsRoute = function(io) {
     /* POST text message */
     router.post('/bulk_send', (req, res, next) => {
         console.log('Sending Bulk Message...');
-
-        client.notify.services(process.env.TWILIO_NOTIFY_SID)
-            .notifications.create({
-                toBinding: JSON.stringify({
-                    binding_type: 'sms', address: process.env.TEST_PHONE_EDDY,
-                    binding_type: 'sms', address: process.env.TEST_PHONE_BRYAN,
-                    binding_type: 'sms', address: process.env.TEST_PHONE_TONY,
-                }),
-                body: "Bulk Message: Hello There!"
-            })
-            .then(notification => console.log(notification.sid))
-            .catch(error => console.log(error));
 
         console.log("Finished Sending Bulk Messages...")
     });

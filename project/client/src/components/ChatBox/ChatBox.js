@@ -40,7 +40,7 @@ class ChatBox extends Component {
             messages.unshift({
                 origin: "geekie",
                 sender: "geekie",
-                message: greet(data.newParticipant.username),
+                message: greet(data.new_participant.username),
             });
 
             this.setState({messages: messages}, ()=>{
